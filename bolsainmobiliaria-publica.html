@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publica tu Propiedad | Bolsa Inmobiliaria UNO Brokers</title>
+<meta name="description" content="Comparte tu propiedad en venta o renta con nuestra red de asesores. Si tenemos un cliente que encaje, te contactamos de inmediato.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0c1f3d;
+    --navy-deep:#081326;
+    --gold:#c6a15b;
+    --gold-light:#e3cd9a;
+    --cream:#f7f4ee;
+    --ink:#1c2530;
+    --line:rgba(198,161,91,0.28);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;line-height:1.6;}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;margin:0 0 .4em;color:var(--navy);}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px;}
+
+  header{background:var(--navy);color:var(--cream);padding:16px 0;border-bottom:1px solid var(--gold);}
+  header .wrap{display:flex;justify-content:space-between;align-items:center;}
+  .brand{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.5px;color:var(--gold-light);}
+
+  .hero{background:linear-gradient(160deg,var(--navy) 0%, var(--navy-deep) 100%);color:#fff;padding:52px 0 40px;text-align:center;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:16px;}
+  .eyebrow::before,.eyebrow::after{content:"";width:22px;height:1px;background:var(--gold);display:inline-block;}
+  .hero h1{color:#fff;font-size:clamp(1.7rem,4vw,2.3rem);}
+  .hero p{max-width:520px;margin:14px auto 0;color:#cdd8e3;font-weight:300;font-size:.98rem;}
+
+  section{padding:36px 0 60px;}
+  .card{background:#fff;border:1px solid #e6ddc8;border-radius:6px;padding:34px;box-shadow:0 20px 50px -34px rgba(12,31,61,0.25);}
+  .field-group-title{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:#9a7a2e;font-weight:600;margin:24px 0 12px;}
+  .field-group-title:first-child{margin-top:0;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:.76rem;letter-spacing:.03em;text-transform:uppercase;color:#8a7b56;margin-bottom:5px;font-weight:500;}
+  .field input,.field select,.field textarea{width:100%;padding:10px 12px;border:1px solid #d8cfba;border-radius:4px;font-family:'Jost',sans-serif;font-size:.92rem;color:var(--ink);background:#fcfaf5;}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);background:#fff;}
+  .field.full{grid-column:1/-1;}
+  .field textarea{resize:vertical;min-height:70px;}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;font-family:'Jost',sans-serif;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;font-weight:500;border-radius:2px;border:none;cursor:pointer;transition:.2s;width:100%;justify-content:center;}
+  .btn-gold{background:var(--gold);color:var(--navy-deep);}
+  .btn-gold:hover{background:var(--gold-light);}
+  .btn-gold:disabled{opacity:.6;cursor:default;}
+
+  #successBox{display:none;text-align:center;padding:40px 20px;}
+  #successBox.show{display:block;}
+  #successBox .ico{font-size:2.6rem;margin-bottom:10px;}
+  #successBox h2{color:var(--navy);}
+  #successBox p{color:#5a6472;font-weight:300;margin-top:10px;}
+
+  footer{background:var(--navy-deep);color:#8b98a8;padding:24px 0;font-size:.8rem;text-align:center;margin-top:30px;}
+  footer strong{color:#d9c48f;}
+
+  @media (max-width:640px){
+    .grid2{grid-template-columns:1fr;}
+    .card{padding:22px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="brand">UNO Brokers</span>
+    <span style="font-size:14px;">📞 <a href="tel:+523339675255" style="color:var(--gold-light);text-decoration:none;">33 3967 5255</a></span>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Bolsa Inmobiliaria · Red de Asesores</span>
+    <h1>Publica tu propiedad</h1>
+    <p>Comparte tu propiedad en venta o renta con nuestra red de asesores. Si tenemos un cliente que encaje, te contactamos de inmediato.</p>
+    <a href="propiedades-en-venta-renta-guadalajara-zapopan.html" style="display:inline-block;border:1px solid rgba(255,255,255,.35);color:#fff;padding:10px 22px;border-radius:2px;text-decoration:none;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;margin-top:8px;">Ver propiedades disponibles</a>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="card" id="formCard">
+      <form id="propForm">
+
+        <div class="field-group-title">Tus datos</div>
+        <div class="grid2">
+          <div class="field">
+            <label>Nombre del asesor / broker *</label>
+            <input type="text" id="f_asesor" required>
+          </div>
+          <div class="field">
+            <label>Teléfono / WhatsApp *</label>
+            <input type="text" id="f_tel" required placeholder="10 dígitos">
+          </div>
+          <div class="field full">
+            <label>Inmobiliaria o agencia</label>
+            <input type="text" id="f_agencia">
+          </div>
+        </div>
+
+        <div class="field-group-title">Datos de la propiedad</div>
+        <div class="grid2">
+          <div class="field">
+            <label>Tipo de operación *</label>
+            <select id="f_operacion" required>
+              <option value="">Selecciona...</option>
+              <option value="Renta">Renta</option>
+              <option value="Venta">Venta</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Tipo de propiedad *</label>
+            <select id="f_tipo" required>
+              <option value="">Selecciona...</option>
+              <option value="Casa">Casa</option>
+              <option value="Departamento">Departamento</option>
+              <option value="Terreno">Terreno</option>
+              <option value="Bodega">Bodega / Nave industrial</option>
+              <option value="Local comercial">Local comercial</option>
+              <option value="Oficina">Oficina</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>Colonia y municipio *</label>
+            <input type="text" id="f_colonia" required placeholder="Ej. Puerta de Hierro, Zapopan">
+          </div>
+          <div class="field">
+            <label>Precio *</label>
+            <input type="text" id="f_precio" required placeholder="Ej. 15,000 o 3,200,000">
+          </div>
+          <div class="field">
+            <label>Superficie de terreno (m²)</label>
+            <input type="text" id="f_terreno">
+          </div>
+          <div class="field">
+            <label>Superficie de construcción (m²)</label>
+            <input type="text" id="f_construccion">
+          </div>
+          <div class="field">
+            <label>Recámaras</label>
+            <input type="text" id="f_recamaras">
+          </div>
+          <div class="field">
+            <label>Baños</label>
+            <input type="text" id="f_banos">
+          </div>
+          <div class="field full">
+            <label>Características destacadas</label>
+            <textarea id="f_caracteristicas" placeholder="Ej. Alberca, roof garden, doble altura..."></textarea>
+          </div>
+        </div>
+
+        <div class="field-group-title">Condiciones de co-brokeraje</div>
+        <div class="grid2">
+          <div class="field">
+            <label>Exclusividad</label>
+            <select id="f_exclusividad">
+              <option value="">Selecciona...</option>
+              <option value="Sí, exclusiva">Sí, exclusiva</option>
+              <option value="No exclusiva">No exclusiva</option>
+              <option value="Compartida">Compartida</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Comisión ofrecida al broker (%)</label>
+            <input type="text" id="f_comision" placeholder="Ej. 50%">
+          </div>
+          <div class="field full">
+            <label>¿Cuándo y cómo se paga la comisión?</label>
+            <input type="text" id="f_pago_comision" placeholder="Ej. A la firma del contrato">
+          </div>
+          <div class="field full">
+            <label>Link a fotos o brochure</label>
+            <input type="text" id="f_fotos" placeholder="Link de Drive, Fotos, etc.">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-gold" id="submitBtn" style="margin-top:20px;">Publicar propiedad</button>
+      </form>
+
+      <div id="successBox">
+        <div class="ico">✅</div>
+        <h2>¡Propiedad publicada!</h2>
+        <p>Tu propiedad ya está registrada en nuestra red. Si tenemos un cliente que encaje, te contactamos directo al teléfono que dejaste.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong>UNO Brokers</strong> · Bolsa Inmobiliaria · Zapopan, Jalisco<br/>
+    📞 33 3967 5255 · <a href="https://propiedades.unobrokers.mx/" style="color:var(--gold-light);">unobrokers.mx</a>
+  </div>
+</footer>
+
+<!-- iframe oculto donde se recibe la respuesta del envío, para que la página nunca navegue hacia Google -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+<script>
+const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSf3mXdGAvNielcTDyEVX3_SeLem2rTQ3stWPDb876ZQMHu-5Q/formResponse";
+
+const FIELD_MAP = {
+  f_asesor: "entry.1401137455",
+  f_tel: "entry.192334068",
+  f_agencia: "entry.1708846760",
+  f_operacion: "entry.1490554408",
+  f_tipo: "entry.562092268",
+  f_colonia: "entry.486088259",
+  f_precio: "entry.1498074535",
+  f_terreno: "entry.770818293",
+  f_construccion: "entry.2065488207",
+  f_recamaras: "entry.90697973",
+  f_banos: "entry.350760457",
+  f_caracteristicas: "entry.62724021",
+  f_exclusividad: "entry.1841908068",
+  f_comision: "entry.801293383",
+  f_pago_comision: "entry.657366684",
+  f_fotos: "entry.723439668"
+};
+
+const form = document.getElementById('propForm');
+const submitBtn = document.getElementById('submitBtn');
+let submitted = false;
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  if(submitted) return;
+
+  // Construir un form real que apunte al iframe oculto
+  const hiddenForm = document.createElement('form');
+  hiddenForm.action = FORM_ACTION;
+  hiddenForm.method = 'POST';
+  hiddenForm.target = 'hidden_iframe';
+  hiddenForm.style.display = 'none';
+
+  Object.keys(FIELD_MAP).forEach(id => {
+    const value = document.getElementById(id).value;
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = FIELD_MAP[id];
+    input.value = value;
+    hiddenForm.appendChild(input);
+  });
+
+  document.body.appendChild(hiddenForm);
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Publicando...';
+  hiddenForm.submit();
+
+  setTimeout(() => {
+    submitted = true;
+    document.getElementById('propForm').style.display = 'none';
+    document.getElementById('successBox').classList.add('show');
+    document.body.removeChild(hiddenForm);
+  }, 900);
+});
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBZQNYLQYF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WBZQNYLQYF');
+</script>
+
+</body>
+</html>
