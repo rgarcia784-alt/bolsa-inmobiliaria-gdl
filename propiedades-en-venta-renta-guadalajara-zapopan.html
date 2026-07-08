@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propiedades en Venta y Renta en Guadalajara y Zapopan | UNO Brokers</title>
+<meta name="description" content="Encuentra casas, departamentos, terrenos, bodegas y locales comerciales en venta y renta en Guadalajara y Zapopan. Directorio actualizado de asesores inmobiliarios.">
+<meta name="keywords" content="propiedades en venta Guadalajara, propiedades en renta Zapopan, casas en venta Guadalajara, departamentos en renta Zapopan, terrenos en venta Guadalajara, bolsa inmobiliaria Guadalajara">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+  :root{
+    --navy:#0c1f3d;
+    --navy-deep:#081326;
+    --navy2:#152b4d;
+    --gold:#c6a15b;
+    --gold-light:#e3cd9a;
+    --cream:#f7f4ee;
+    --ink:#1c2530;
+    --line:rgba(198,161,91,0.28);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;line-height:1.6;}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;margin:0 0 .4em;color:var(--navy);}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  header{background:var(--navy);color:var(--cream);padding:16px 0;border-bottom:1px solid var(--gold);}
+  header .wrap{display:flex;justify-content:space-between;align-items:center;}
+  .brand{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.5px;color:var(--gold-light);}
+
+  .hero{background:linear-gradient(160deg,var(--navy) 0%, var(--navy-deep) 100%);color:#fff;padding:44px 0 36px;text-align:center;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px;}
+  .eyebrow::before,.eyebrow::after{content:"";width:22px;height:1px;background:var(--gold);display:inline-block;}
+  .hero h1{color:#fff;font-size:clamp(1.6rem,3.6vw,2.2rem);}
+  .hero p{max-width:520px;margin:12px auto 18px;color:#cdd8e3;font-weight:300;font-size:.94rem;}
+  .hero .btn-ghost{display:inline-block;border:1px solid rgba(255,255,255,.35);color:#fff;padding:10px 22px;border-radius:2px;text-decoration:none;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;}
+  .hero .btn-ghost:hover{border-color:var(--gold-light);color:var(--gold-light);}
+
+  /* Personalización */
+  .personaliza-box{max-width:100%;margin:22px 0;padding:16px 20px;background:#fff8e6;border:2px solid #e8a020;border-radius:10px;box-shadow:0 2px 10px rgba(232,160,32,0.2);}
+  .personaliza-toggle{background:none;border:none;cursor:pointer;font-size:14px;font-weight:800;color:#b8720a;padding:0;display:flex;align-items:center;gap:8px;width:100%;text-align:left}
+  .personaliza-panel{display:none;margin-top:14px}
+  .personaliza-panel p{font-size:12.5px;color:#5a6a7a;margin-bottom:10px}
+  .p-inputs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .p-inputs input{padding:9px 10px;border:1px solid #cfd8e0;border-radius:6px;font-size:13px}
+  .p-inputs input#pAgentName{flex:1;min-width:180px}
+  .p-inputs input#pAgentTel{width:170px}
+  #pGenBtn{background:#e8a020;color:#fff;border:none;padding:9px 18px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer}
+  #pStatus{margin-top:10px;font-size:12.5px;color:#2e7d32;font-weight:600;display:none;}
+
+  /* Buscador */
+  .search-panel{background:#fff;border:1px solid #e6ddc8;border-radius:8px;padding:20px;margin:20px 0;box-shadow:0 10px 30px -22px rgba(12,31,61,0.2);}
+  .search-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;}
+  .search-row input,.search-row select{padding:11px 12px;border:1px solid #d8cfba;border-radius:4px;font-family:'Jost',sans-serif;font-size:.92rem;background:#fcfaf5;}
+  .search-row input:focus,.search-row select:focus{outline:none;border-color:var(--gold);background:#fff;}
+  .results-count{font-size:.82rem;color:#6b7482;margin-top:10px;}
+
+  section.listado{padding:20px 0 60px;}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .prop-card{background:#fff;border:1px solid #e6ddc8;border-radius:8px;padding:22px;display:flex;flex-direction:column;}
+  .prop-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+  .prop-badges{display:flex;gap:6px;flex-wrap:wrap;}
+  .badge{font-size:.72rem;text-transform:uppercase;letter-spacing:.03em;padding:4px 10px;border-radius:12px;font-weight:600;}
+  .badge-op-renta{background:#e3f2e6;color:#276b3a;}
+  .badge-op-venta{background:#e8eef8;color:#2c4a80;}
+  .badge-tipo{background:var(--cream);color:var(--navy);border:1px solid #e6ddc8;}
+  .prop-precio{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--navy);font-weight:700;white-space:nowrap;}
+  .prop-zona{font-size:.95rem;color:#3d4a58;margin-bottom:10px;font-weight:500;}
+  .prop-specs{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:#6b7482;margin-bottom:10px;}
+  .prop-caract{font-size:.85rem;color:#4a5665;font-weight:300;margin-bottom:14px;flex-grow:1;}
+  .prop-footer{border-top:1px solid #eee3cc;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+  .prop-publicado{font-size:.76rem;color:#9a9789;}
+  .btn-copiar{background:var(--navy);color:#fff;border:none;padding:9px 16px;border-radius:4px;font-size:.78rem;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;font-weight:500;}
+  .btn-copiar:hover{background:var(--navy2);}
+  .btn-copiar.copied{background:#2e7d32;}
+  .no-results,.loading{text-align:center;padding:60px 20px;color:#8a93a0;font-size:.95rem;grid-column:1/-1;}
+
+  footer{background:var(--navy-deep);color:#8b98a8;padding:26px 0;font-size:.8rem;text-align:center;margin-top:20px;}
+  footer strong{color:#d9c48f;}
+
+  @media (max-width:760px){
+    .search-row{grid-template-columns:1fr;}
+    .grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="brand">UNO Brokers</span>
+    <span style="font-size:14px;">📞 <a href="tel:+523339675255" style="color:var(--gold-light);text-decoration:none;">33 3967 5255</a></span>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Bolsa Inmobiliaria · Red de Asesores</span>
+    <h1>Propiedades en Venta y Renta<br>en Guadalajara y Zapopan</h1>
+    <p>Casas, departamentos, terrenos, bodegas y locales comerciales compartidos entre asesores. Busca, filtra y comparte con tus clientes.</p>
+    <a class="btn-ghost" href="bolsainmobiliaria-publica.html">+ Publicar mi propiedad</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- Personalización -->
+  <div class="personaliza-box" id="personalizaBox">
+    <button class="personaliza-toggle" id="personalizaToggle">
+      🔗 <span>Pon tus datos para que aparezcan al copiar una propiedad para tu cliente →</span>
+    </button>
+    <div class="personaliza-panel" id="personalizaPanel">
+      <p>Estos datos solo se usan para armar el texto que copies — no se guardan ni se comparten con nadie más.</p>
+      <div class="p-inputs">
+        <input id="pAgentName" type="text" placeholder="Tu nombre o el de tu inmobiliaria">
+        <input id="pAgentTel" type="text" placeholder="WhatsApp (10 dígitos)" maxlength="10">
+      </div>
+      <button id="pGenBtn">Guardar mis datos</button>
+      <div id="pStatus">✅ Datos guardados. Ya puedes copiar propiedades con tu información.</div>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="search-panel">
+    <div class="search-row">
+      <input type="text" id="searchText" placeholder="🔍 Buscar por zona, características...">
+      <select id="filterOp">
+        <option value="">Toda operación</option>
+        <option value="Renta">Renta</option>
+        <option value="Venta">Venta</option>
+      </select>
+      <select id="filterTipo">
+        <option value="">Todo tipo</option>
+        <option value="Casa">Casa</option>
+        <option value="Departamento">Departamento</option>
+        <option value="Terreno">Terreno</option>
+        <option value="Bodega">Bodega / Nave industrial</option>
+        <option value="Local comercial">Local comercial</option>
+        <option value="Oficina">Oficina</option>
+      </select>
+    </div>
+    <div class="results-count" id="resultsCount">Cargando propiedades...</div>
+  </div>
+
+</div>
+
+<section class="listado">
+  <div class="wrap">
+    <div class="grid" id="grid">
+      <div class="loading">Cargando propiedades...</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;border-top:1px solid #e6ddc8;padding:40px 0;">
+  <div class="wrap">
+    <h3 style="font-size:1.2rem;margin-bottom:16px;">Más herramientas de UNO Brokers</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <a href="https://propiedades.unobrokers.mx/calculadora-opinion-valor.html" style="background:var(--cream);border:1px solid #e6ddc8;border-radius:6px;padding:18px;text-decoration:none;display:block;">
+        <strong style="color:var(--navy);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">Calculadora de Opinión de Valor</strong>
+        <p style="font-size:.82rem;color:#6b7482;margin-top:6px;">Descubre el precio correcto de tu propiedad.</p>
+      </a>
+      <a href="https://propiedades.unobrokers.mx/generador-contrato-renta.html" style="background:var(--cream);border:1px solid #e6ddc8;border-radius:6px;padding:18px;text-decoration:none;display:block;">
+        <strong style="color:var(--navy);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">Generador de Contrato de Renta</strong>
+        <p style="font-size:.82rem;color:#6b7482;margin-top:6px;">Gratis, listo para descargar en Word.</p>
+      </a>
+      <a href="https://propiedades.unobrokers.mx/investigacion-inquilinos.html" style="background:var(--cream);border:1px solid #e6ddc8;border-radius:6px;padding:18px;text-decoration:none;display:block;">
+        <strong style="color:var(--navy);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">Investigación de Inquilinos</strong>
+        <p style="font-size:.82rem;color:#6b7482;margin-top:6px;">Dictamen completo antes de firmar.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong>UNO Brokers</strong> · Bolsa Inmobiliaria · Zapopan, Jalisco<br/>
+    📞 33 3967 5255 · unobrokers.mx
+  </div>
+</footer>
+
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzTtrgC7ldmWyadfXchh3a4cxrVL-sHQjPIB2hI2_tyxDyQ7d9LLoUvdwizR_GXcUAlF37uf9A8_1Y/pub?output=csv";
+const DEFAULT_AGENT = { name: 'UNO Brokers', tel: '523339675255', telDisplay: '33 3967 5255' };
+
+function getAgent(){
+  try{
+    const saved = JSON.parse(localStorage.getItem('bolsa_agent') || 'null');
+    if(saved && saved.name && saved.tel) return saved;
+  }catch(e){}
+  return DEFAULT_AGENT;
+}
+
+(function(){
+  const toggleBtn = document.getElementById('personalizaToggle');
+  const panel = document.getElementById('personalizaPanel');
+  toggleBtn.addEventListener('click', ()=>{ panel.style.display = panel.style.display==='none' ? 'block' : 'none'; });
+
+  const agent = getAgent();
+  if(agent !== DEFAULT_AGENT){
+    document.getElementById('pAgentName').value = agent.name;
+    document.getElementById('pAgentTel').value = agent.tel.slice(-10);
+  }
+
+  document.getElementById('pGenBtn').addEventListener('click', ()=>{
+    const nombre = document.getElementById('pAgentName').value.trim();
+    const tel = document.getElementById('pAgentTel').value.trim().replace(/\D/g,'');
+    if(!nombre || tel.length!==10){ alert('Escribe tu nombre y un WhatsApp válido a 10 dígitos.'); return; }
+    const telFull = '52'+tel;
+    const display = tel.replace(/(\d{2})(\d{4})(\d{4})/,'$1 $2 $3');
+    localStorage.setItem('bolsa_agent', JSON.stringify({name:nombre, tel:telFull, telDisplay:display}));
+    const status = document.getElementById('pStatus');
+    status.style.display = 'block';
+    setTimeout(()=>{ status.style.display='none'; }, 3000);
+  });
+})();
+
+let allProps = [];
+
+function parseFecha(str){
+  // Formato típico de Google Forms: M/D/YYYY H:MM:SS
+  const d = new Date(str);
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function dentroDeVigencia(fecha){
+  if(!fecha) return true; // si no se puede leer la fecha, la mostramos de todos modos
+  const tresMesesAtras = new Date();
+  tresMesesAtras.setMonth(tresMesesAtras.getMonth() - 3);
+  return fecha >= tresMesesAtras;
+}
+
+function fnum(v){
+  if(!v) return '';
+  const n = parseFloat(v.toString().replace(/[^0-9.]/g,''));
+  if(isNaN(n)) return v;
+  return n.toLocaleString('es-MX');
+}
+
+function cargarPropiedades(){
+  Papa.parse(CSV_URL, {
+    download: true,
+    header: true,
+    complete: function(results){
+      allProps = results.data
+        .filter(row => row['Nombre del asesor / broker'] && row['Nombre del asesor / broker'].trim())
+        .map(row => ({
+          fecha: parseFecha(row['Marca temporal']),
+          asesor: row['Nombre del asesor / broker'] || '',
+          tel: (row['Teléfono / WhatsApp'] || '').replace(/\D/g,''),
+          agencia: row['Inmobiliaria o agencia'] || '',
+          operacion: row['Tipo de operación'] || '',
+          tipo: row['Tipo de propiedad'] || '',
+          zona: row['Colonia y municipio'] || '',
+          precio: row['Precio'] || '',
+          terreno: row['Superficie de terreno (m²)'] || '',
+          construccion: row['Superficie de construcción (m²)'] || '',
+          recamaras: row['Recámaras'] || '',
+          banos: row['Baños'] || '',
+          caracteristicas: row['Características destacadas'] || '',
+          comision: row['Comisión ofrecida al broker (%)'] || ''
+        }))
+        .filter(p => dentroDeVigencia(p.fecha))
+        .reverse(); // más recientes primero
+      renderGrid(allProps);
+    },
+    error: function(){
+      document.getElementById('grid').innerHTML = '<div class="no-results">No se pudieron cargar las propiedades. Intenta recargar la página.</div>';
+      document.getElementById('resultsCount').textContent = 'Error al cargar.';
+    }
+  });
+}
+
+function renderGrid(props){
+  const grid = document.getElementById('grid');
+  const count = document.getElementById('resultsCount');
+  count.textContent = props.length + (props.length===1 ? ' propiedad encontrada' : ' propiedades encontradas');
+
+  if(props.length === 0){
+    grid.innerHTML = '<div class="no-results">No hay propiedades que coincidan con tu búsqueda.</div>';
+    return;
+  }
+
+  grid.innerHTML = props.map((p, i) => `
+    <div class="prop-card">
+      <div class="prop-top">
+        <div class="prop-badges">
+          <span class="badge ${p.operacion==='Renta' ? 'badge-op-renta' : 'badge-op-venta'}">${p.operacion || '—'}</span>
+          <span class="badge badge-tipo">${p.tipo || '—'}</span>
+        </div>
+        <div class="prop-precio">$${fnum(p.precio)}</div>
+      </div>
+      <div class="prop-zona">📍 ${p.zona || 'Zona no especificada'}</div>
+      <div class="prop-specs">
+        ${p.construccion ? `<span>🏗 ${p.construccion} m² const.</span>` : ''}
+        ${p.terreno ? `<span>📐 ${p.terreno} m² terreno</span>` : ''}
+        ${p.recamaras ? `<span>🛏 ${p.recamaras} rec.</span>` : ''}
+        ${p.banos ? `<span>🚿 ${p.banos} baños</span>` : ''}
+      </div>
+      ${p.caracteristicas ? `<div class="prop-caract">${p.caracteristicas}</div>` : '<div class="prop-caract"></div>'}
+      <div class="prop-footer">
+        <span class="prop-publicado">Publicado por ${p.asesor}${p.comision ? ' · Comisión: '+p.comision : ''}</span>
+        <button class="btn-copiar" onclick="copiarPropiedad(${i}, this)">📋 Copiar para mi cliente</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.copiarPropiedad = function(index, btn){
+  const p = window._filteredProps ? window._filteredProps[index] : allProps[index];
+  const agent = getAgent();
+
+  let texto = `🏡 ${p.tipo} en ${p.operacion} — ${p.zona}\n`;
+  texto += `💰 $${fnum(p.precio)}${p.operacion==='Renta' ? '/mes' : ''}\n`;
+  if(p.construccion) texto += `🏗 ${p.construccion} m² construcción\n`;
+  if(p.terreno) texto += `📐 ${p.terreno} m² terreno\n`;
+  if(p.recamaras || p.banos) texto += `🛏 ${p.recamaras||'-'} recámaras · 🚿 ${p.banos||'-'} baños\n`;
+  if(p.caracteristicas) texto += `✨ ${p.caracteristicas}\n`;
+  texto += `\nContacto: ${agent.name} — ${agent.telDisplay}`;
+
+  navigator.clipboard.writeText(texto).then(()=>{
+    const orig = btn.textContent;
+    btn.textContent = '✅ ¡Copiado!';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(()=>{
+    alert('No se pudo copiar automáticamente. Copia este texto manualmente:\n\n'+texto);
+  });
+};
+
+function aplicarFiltros(){
+  const texto = document.getElementById('searchText').value.trim().toLowerCase();
+  const op = document.getElementById('filterOp').value;
+  const tipo = document.getElementById('filterTipo').value;
+
+  const filtered = allProps.filter(p => {
+    const matchTexto = !texto || (p.zona+' '+p.caracteristicas+' '+p.tipo).toLowerCase().includes(texto);
+    const matchOp = !op || p.operacion === op;
+    const matchTipo = !tipo || p.tipo === tipo;
+    return matchTexto && matchOp && matchTipo;
+  });
+
+  window._filteredProps = filtered;
+  renderGrid(filtered);
+}
+
+document.getElementById('searchText').addEventListener('input', aplicarFiltros);
+document.getElementById('filterOp').addEventListener('change', aplicarFiltros);
+document.getElementById('filterTipo').addEventListener('change', aplicarFiltros);
+
+cargarPropiedades();
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBZQNYLQYF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WBZQNYLQYF');
+</script>
+
+</body>
+</html>
